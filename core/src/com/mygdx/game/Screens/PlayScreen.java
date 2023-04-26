@@ -1,35 +1,23 @@
 package com.mygdx.game.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MathDash;
-import com.mygdx.game.Scenes.Hud;
+import com.mygdx.game.Screens.Scenes.Hud;
 import com.mygdx.game.Sprites.Kub;
+import com.mygdx.game.Sprites.PhysicsTest;
 import com.mygdx.game.Tools.B2WorldCreator;
-
-import javax.swing.SpringLayout;
 
 public class PlayScreen implements Screen {
 
@@ -48,6 +36,7 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
 
     private Kub player;
+    //private PhysicsTest testPlayer;
 
     public PlayScreen(MathDash game) {
         this.game = game;
@@ -70,6 +59,8 @@ public class PlayScreen implements Screen {
         new B2WorldCreator(world, map);
 
         player = new Kub(world, this);
+        //testPlayer = new PhysicsTest(world, this);
+
 
 
     }
@@ -94,20 +85,34 @@ public class PlayScreen implements Screen {
         gameCam.update();
         renderer.setView(gameCam);
     }
-    /** прыгает нормально, перепрыгнуть 3 шипа может, загвостка в том, что он не крутиться*/
+    /** прыгает нормально, перепрыгнуть 3 шипа может, загвостка в том, что он не крутиться, UPD: крутится*/
+    int i = 1; /** для прокрутки */
     private void handleInput(float dt) {
-        player.b2body.applyAngularImpulse(30, true);
-        if(player.b2body.getLinearVelocity().x <= 1f ) {
-            player.b2body.applyLinearImpulse(new Vector2(0.25f, 0), player.b2body.getWorldCenter(), true);
+        /** Анализация смерти*/
+        Death();
+        if(player.b2body.getLinearVelocity().x <= 1f) {
+            player.b2body.applyLinearImpulse(new Vector2(0.25f, 0), new Vector2(-8*100,-800), true);
+
         }
-            if (Gdx.input.isTouched()) {
-                if(player.b2body.getLinearVelocity().y == 0) {
-                    /** Тут надо написать функцию, чтоб он двигался по параболле
-                     * UPD: уже есть :))) и функция не нужна, но он не крутится*/
-                    player.b2body.applyLinearImpulse(new Vector2(0, 3f), player.b2body.getWorldCenter(), true);
-                    // player.b2body.applyAngularImpulse(10,true);
-                }
+        if (Gdx.input.isTouched()) {
+
+            if(player.b2body.getLinearVelocity().y == 0) {
+                /** Тут надо написать функцию, чтоб он двигался по параболле
+                 * UPD: уже есть :))) и функция не нужна, но он не крутится*/
+                player.b2body.applyLinearImpulse(new Vector2(0, 3f), player.b2body.getWorldCenter(), true);
+                player.setRotation(-90*i);
+                i++;
+
             }
+        }
+    }
+    private void Death() {
+        if(player.b2body.getLinearVelocity().x == 0 && i != 1) {
+            System.exit(0);
+        }
+        if(player.b2body.getPosition().y < -1) {
+            System.exit(0);
+        }
     }
 
     @Override
@@ -122,6 +127,7 @@ public class PlayScreen implements Screen {
 
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
+        player.setOrigin(8/MathDash.PPM,8/MathDash.PPM);
         player.draw(game.batch);
         game.batch.end();
 
