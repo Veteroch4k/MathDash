@@ -94,20 +94,35 @@ public class PlayScreen implements Screen {
         gameCam.update();
         renderer.setView(gameCam);
     }
-    /** прыгает нормально, перепрыгнуть 3 шипа может, загвостка в том, что он не крутиться*/
+    /** прыгает нормально, перепрыгнуть 3 шипа может, загвостка в том, что он не крутиться, UPD: крутится*/
+    int i = 1; /** для прокрутки */
     private void handleInput(float dt) {
-        player.b2body.applyAngularImpulse(30, true);
-        if(player.b2body.getLinearVelocity().x <= 1f ) {
-            player.b2body.applyLinearImpulse(new Vector2(0.25f, 0), player.b2body.getWorldCenter(), true);
+        /** Анализация смерти*/
+        Death();
+        if (player.b2body.getLinearVelocity().x <= 1f) {
+            player.b2body.applyLinearImpulse(new Vector2(0.25f, 0), new Vector2(-8 * 100, -800), true);
+
         }
-            if (Gdx.input.isTouched()) {
-                if(player.b2body.getLinearVelocity().y == 0) {
-                    /** Тут надо написать функцию, чтоб он двигался по параболле
-                     * UPD: уже есть :))) и функция не нужна, но он не крутится*/
-                    player.b2body.applyLinearImpulse(new Vector2(0, 3f), player.b2body.getWorldCenter(), true);
-                    // player.b2body.applyAngularImpulse(10,true);
-                }
+        if (Gdx.input.isTouched()) {
+
+            if (player.b2body.getLinearVelocity().y == 0) {
+                /** Тут надо написать функцию, чтоб он двигался по параболле
+                 * UPD: уже есть :))) и функция не нужна, но он не крутится*/
+                player.b2body.applyLinearImpulse(new Vector2(0, 3f), player.b2body.getWorldCenter(), true);
+                player.setRotation(-90 * i);
+                i++;
+
             }
+        }
+    }
+
+    private void Death() {
+        if(player.b2body.getLinearVelocity().x == 0 && i != 1) {
+            System.exit(0);
+        }
+        if(player.b2body.getPosition().y < -1) {
+            System.exit(0);
+        }
     }
 
     @Override
@@ -122,7 +137,10 @@ public class PlayScreen implements Screen {
 
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
+
+        player.setOrigin(8/MathDash.PPM,8/MathDash.PPM);
         player.draw(game.batch);
+
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -131,7 +149,6 @@ public class PlayScreen implements Screen {
 
 
     }
-
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
