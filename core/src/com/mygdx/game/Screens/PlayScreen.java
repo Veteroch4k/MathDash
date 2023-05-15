@@ -28,6 +28,7 @@ import com.mygdx.game.MathDash;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.Kub;
 import com.mygdx.game.Tools.B2WorldCreator;
+import com.mygdx.game.Tools.WorlContactListenner;
 
 import javax.swing.SpringLayout;
 
@@ -58,7 +59,6 @@ public class PlayScreen implements Screen {
         gamePort = new FillViewport(MathDash.V_WIDTH / MathDash.PPM, MathDash.V_HEIGHT / MathDash.PPM, gameCam);
 
         hud = new Hud(game.batch);
-        /** уровень тестовый, онли для проверки физики и тестов, как только текстур-пак будет хороший, начнется разработка уровней */
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / MathDash.PPM);
@@ -71,6 +71,8 @@ public class PlayScreen implements Screen {
 
         player = new Kub(world, this);
 
+        world.setContactListener(new WorlContactListenner());
+
 
     }
 
@@ -82,9 +84,9 @@ public class PlayScreen implements Screen {
     public void show() {
 
     }
-
+    /** Мир двигается не сам, а с нажатиями **/
     public void update(float dt) {
-        handleInput(dt);
+        handleInput();
 
         world.step(1/60f,6, 2);
 
@@ -96,32 +98,44 @@ public class PlayScreen implements Screen {
     }
     /** прыгает нормально, перепрыгнуть 3 шипа может, загвостка в том, что он не крутиться, UPD: крутится*/
     int i = 1; /** для прокрутки */
-    private void handleInput(float dt) {
-        /** Анализация смерти*/
-        Death();
-        if (player.b2body.getLinearVelocity().x <= 1f) {
-            player.b2body.applyLinearImpulse(new Vector2(0.25f, 0), new Vector2(-8 * 100, -800), true);
-
-        }
-        if (Gdx.input.isTouched()) {
-
-            if (player.b2body.getLinearVelocity().y == 0) {
-                /** Тут надо написать функцию, чтоб он двигался по параболле
-                 * UPD: уже есть :))) и функция не нужна, но он не крутится*/
-                player.b2body.applyLinearImpulse(new Vector2(0, 3f), player.b2body.getWorldCenter(), true);
-                player.setRotation(-90 * i);
-                i++;
-
+    private void handleInput() {
+        if(player.currentState == Kub.State.ALIVE) {
+            /** здесь я обрабатываю нажатия относительно цетнра экрана **/
+            if (Gdx.input.isTouched()) {
+                if (Gdx.input.getX() > (Gdx.graphics.getWidth() / 2)) {
+                    moveRight();
+                } else if (Gdx.input.getX() < (Gdx.graphics.getWidth() / 2)) {
+                    moveLeft();
+                }
             }
         }
     }
+    private void moveRight(){
+        if (player.b2body.getLinearVelocity().x <= 1f) {
+            player.b2body.applyLinearImpulse(new Vector2(0.5f, 0), new Vector2(-8 * 100, -800), true);
 
-    private void Death() {
-        if(player.b2body.getLinearVelocity().x == 0 && i != 1) {
-            System.exit(0);
         }
-        if(player.b2body.getPosition().y < -1) {
-            System.exit(0);
+        if (player.b2body.getLinearVelocity().y == 0) {
+            /** Тут надо написать функцию, чтоб он двигался по параболле
+             * UPD: уже есть :))) и функция не нужна, но он не крутится*/
+            player.b2body.applyLinearImpulse(new Vector2(0, 3f), player.b2body.getWorldCenter(), true);
+            player.setRotation(-90 * i);
+            i++;
+
+        }
+    }
+    private void moveLeft(){
+        if (player.b2body.getLinearVelocity().x >= -1f) {
+            player.b2body.applyLinearImpulse(new Vector2(-0.5f, 0), new Vector2(-8 * 100, -800), true);
+
+        }
+        if (player.b2body.getLinearVelocity().y == 0) {
+            /** Тут надо написать функцию, чтоб он двигался по параболле
+             * UPD: уже есть :))) и функция не нужна, но он не крутится*/
+            player.b2body.applyLinearImpulse(new Vector2(0, 3f), player.b2body.getWorldCenter(), true);
+            player.setRotation(-90 * i);
+            i++;
+
         }
     }
 
@@ -146,9 +160,13 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
-
+        if(player.currentState == Kub.State.DEAD) {
+            game.setScreen(new GameOverScreen(game));
+        }
 
     }
+
+
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
