@@ -127,6 +127,7 @@
   <object id="41" x="2544" y="176" width="16" height="16"/>
   <object id="42" x="2496" y="192" width="1344" height="16"/>
   <object id="53" x="2912" y="176" width="16" height="16"/>
+
   <object id="154" x="720.333" y="175.667" width="32" height="16" visible="0"/>
   <object id="157" x="863.455" y="175.818" width="16" height="16" visible="0"/>
   <object id="227" x="0" y="0" width="16" height="192"/>
@@ -169,6 +170,16 @@
   <object id="353" x="2160.09" y="82.0909" width="16" height="10.9091"/>
   <object id="354" x="2192.64" y="82.0909" width="16" height="10.9091"/>
   <object id="355" x="2209" y="82" width="16" height="10.9091"/>
+
+  <object id="54" x="3184" y="176" width="16" height="16"/>
+  <object id="153" x="544" y="176" width="15.6667" height="16.6667"/>
+  <object id="154" x="720.333" y="175.667" width="31.3333" height="16.3333"/>
+  <object id="155" x="848.333" y="175.667" width="15" height="16"/>
+  <object id="157" x="863.455" y="175.818" width="16.3636" height="15.6364"/>
+  <object id="161" x="895.727" y="191.455">
+   <polygon points="0,0 -15.8182,0.272727 -15.7273,-15.3636"/>
+  </object>
+
  </objectgroup>
  <objectgroup id="6" name="Bricks">
   <object id="170" x="1520.25" y="176.25" width="32" height="16"/>
@@ -207,4 +218,7 @@
   <object id="356" x="864" y="176" width="32" height="16"/>
   <object id="357" x="1552" y="176" width="16" height="16"/>
  </objectgroup>
+
+ <objectgroup id="4" name="Thorns"/>
+
 </map>

@@ -76,6 +76,7 @@ public class Kub extends Sprite {
 
     }
 
+
     private void Specialsurface(FixtureDef fdef) {
         EdgeShape edgeShape = new EdgeShape();
         edgeShape.set(new Vector2(6.5f / MathDash.PPM, -6.5f / MathDash.PPM), new Vector2(-6.5f / MathDash.PPM, -6.5f / MathDash.PPM));
@@ -106,6 +107,7 @@ public class Kub extends Sprite {
     public void hitting() {
         currentState = State.DEAD;
     }
+
 
 }
 

@@ -38,12 +38,30 @@ public class B2WorldCreator {
         /** */
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
             new Brick(world, map, rect);
         }
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
              new Thorns(world, map, rect);
         }
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / MathDash.PPM, (rect.getY() + rect.getHeight() / 2) / MathDash.PPM);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 / MathDash.PPM, rect.getHeight() / 2 / MathDash.PPM);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
+        /** */
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+             new Thorns(world, map, rect);
+        }
+
+
 
     }
 }
