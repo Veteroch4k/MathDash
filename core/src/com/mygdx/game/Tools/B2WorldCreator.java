@@ -10,7 +10,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MathDash;
-import com.mygdx.game.Sprites.Thorns;
+import com.mygdx.game.Sprites.TileObjects.Brick;
+import com.mygdx.game.Sprites.TileObjects.Thorns;
 
 public class B2WorldCreator {
 
@@ -22,7 +23,6 @@ public class B2WorldCreator {
         Body body;
 
 
-        /** щас здесь каша, но в будущем будет отдельно для каждого спрайта выполненно, а пока что естьБ то есть **/
 
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -38,6 +38,14 @@ public class B2WorldCreator {
         /** */
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new Brick(world, map, rect);
+        }
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+             new Thorns(world, map, rect);
+        }
+
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX() + rect.getWidth() / 2) / MathDash.PPM, (rect.getY() + rect.getHeight() / 2) / MathDash.PPM);
 
