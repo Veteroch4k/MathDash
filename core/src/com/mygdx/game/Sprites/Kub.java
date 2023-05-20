@@ -3,6 +3,7 @@ package com.mygdx.game.Sprites;
 import static com.badlogic.gdx.utils.JsonValue.ValueType.object;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,13 +19,11 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MathDash;
 import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.db.Preference;
 
-import java.awt.geom.RectangularShape;
-
-import sun.jvm.hotspot.utilities.HeapGXLWriter;
 
 public class Kub extends Sprite {
-    public enum State { ALIVE, DEAD}
+    public enum State { ALIVE, DEAD, FINISHED}
     public State currentState;
     public World world;
     public Body b2body;
@@ -59,7 +58,7 @@ public class Kub extends Sprite {
         shape.setAsBox(rect.getWidth() / 2 / MathDash.PPM, rect.getHeight() / 2  / MathDash.PPM);
 
         fdef.filter.categoryBits = MathDash.KUB_BIT;
-        fdef.filter.maskBits =  MathDash.BRICK_BIT  | MathDash.THORNS_BIT | MathDash.DEFAULT_BIT;
+        fdef.filter.maskBits =  MathDash.BRICK_BIT  | MathDash.THORNS_BIT | MathDash.FINISH_BLOCK_BIT | MathDash.DEFAULT_BIT;
 
 
         fdef.shape = shape;
@@ -102,10 +101,14 @@ public class Kub extends Sprite {
         fdef.filter.categoryBits = MathDash.ORD_SURFACE_BIT;
 
         b2body.createFixture(fdef).setUserData(this);
+
     }
 
     public void hitting() {
         currentState = State.DEAD;
+    }
+    public void finish() {
+        currentState = State.FINISHED;
     }
 
 

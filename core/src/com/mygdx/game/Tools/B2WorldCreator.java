@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MathDash;
 import com.mygdx.game.Sprites.TileObjects.Brick;
+import com.mygdx.game.Sprites.TileObjects.FinishBlocks;
 import com.mygdx.game.Sprites.TileObjects.Thorns;
 
 public class B2WorldCreator {
@@ -21,8 +22,6 @@ public class B2WorldCreator {
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
         Body body;
-
-
 
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -44,6 +43,10 @@ public class B2WorldCreator {
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
              new Thorns(world, map, rect);
+        }
+        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+             new FinishBlocks(world, map, rect);
         }
 
             bdef.type = BodyDef.BodyType.StaticBody;

@@ -10,37 +10,37 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MathDash;
-
-import java.awt.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.mygdx.game.db.Preference;
 
 public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport;
 
-    /*private Integer worldTimer;
-    private float timeCount;
-    private Integer score;
-*/
-    /*Label countdownLabel;
-    Label scoreLabel;
+    public Integer score;
+
     Label levelLabel;
-    Label timeLabel;
     Label worldLabel;
-    Label MathDashLabel;*/
 
-    /** надо будет сделать меню с % пройденности карты*/
-
+    @SuppressWarnings("DefaultLocale")
     public Hud(SpriteBatch sb) {
-        /*worldTimer = 300;
-        timeCount = 0;
-        score = 0;*/
+
+        score = MathDash.attempt;
+
         viewport = new FitViewport(MathDash.V_WIDTH, MathDash.V_WIDTH, new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
-        /*Table table = new Table();
+        Table table = new Table();
         table.top();
         table.setFillParent(true);
-*/
+
+        worldLabel = new Label("Attempt " + Integer.toString(score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        levelLabel = new Label("Level 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
+        table.add(levelLabel).expandX().padTop(10f);
+        table.add(worldLabel).expandX().padTop(10f);
+
+        stage.addActor(table);
     }
 
 
