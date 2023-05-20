@@ -6,47 +6,31 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MathDash;
 
-
-public class MainMenu implements Screen {
-
+public class GameFinishedScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
-    private OrthographicCamera gameCam;
 
     private Game game;
 
-    private Label playAgain;
-    private Label getResults;
+    private Label menuBack;
 
-    public MainMenu(final MathDash game) {
+
+    public GameFinishedScreen(final MathDash game) {
         this.game = game;
         viewport = new FitViewport(MathDash.V_WIDTH, MathDash.V_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, game.batch);
-        gameCam = new OrthographicCamera();
+        stage = new Stage(viewport, (game).batch);
 
-        gameCam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+
         Gdx.input.setInputProcessor(stage);
 
         Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
@@ -55,44 +39,29 @@ public class MainMenu implements Screen {
         table.center();
         table.setFillParent(true);
 
-        Label gameOverLabel = new Label("MATH DASH", font);
-        playAgain = new Label("START THE GAME", font);
-        getResults = new Label("Results", font);
+        Label gameEndLabel = new Label("Level passed", font);
+        menuBack = new Label("Back to Menu", font);
 
-        table.add(gameOverLabel).expandX();
+        table.add(gameEndLabel).expandX();
         table.row();
-        table.add(playAgain).padTop(25f);
-        table.row();
-        table.add(getResults).padTop(10f);
-
+        table.add(menuBack).padTop(25f);
 
         stage.addActor(table);
 
-        playAgain.addListener(new ClickListener() {
+        menuBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                game.setScreen(new LevelSelectionScreen(game));
+                game.setScreen(new MainMenu(game));
                 dispose();
 
             }
         });
-        getResults.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-
-                game.setScreen(new ResultsScreen(game));
-                dispose();
-
-            }
-        });
-
     }
 
 
     @Override
     public void show() {
-
 
     }
 
@@ -102,7 +71,6 @@ public class MainMenu implements Screen {
         Gdx.gl.glClearColor(.1f, .12f, .16f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
-
     }
 
     @Override
@@ -130,7 +98,3 @@ public class MainMenu implements Screen {
         stage.dispose();
     }
 }
-/*
-Label gameOverLabel = new Label("Game Over", font);
-        Label playAgain = new Label("Play Again", font);
- */

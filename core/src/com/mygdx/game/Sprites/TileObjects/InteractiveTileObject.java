@@ -16,7 +16,6 @@ import com.mygdx.game.MathDash;
 public abstract class InteractiveTileObject {
     protected World world;
     protected TiledMap map;
-    protected TiledMapTile tile;
     protected Rectangle bounds;
     protected Body body;
 

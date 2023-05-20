@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.MathDash;
+import com.mygdx.game.Screens.PlayScreen;
 import com.mygdx.game.Sprites.TileObjects.Brick;
 import com.mygdx.game.Sprites.Kub;
 
@@ -17,12 +18,25 @@ public class WorlContactListenner implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
-
+        /** Добавляя новый объект, не забудь добавить его в B2WorldCreator and Kub(collision) **/
         switch (cDef) {
             case  MathDash.ORD_SURFACE_BIT | MathDash.BRICK_BIT :
             case  MathDash.ORD_SURFACE_BIT | MathDash.THORNS_BIT:
                 if(fixA.getFilterData().categoryBits == MathDash.ORD_SURFACE_BIT) ((Kub) fixA.getUserData()).hitting();
                 else  ((Kub) fixB.getUserData()).hitting();
+                break;
+
+            case  MathDash.ORD_SURFACE_BIT | MathDash.FINISH_BLOCK_BIT:
+                if(fixA.getFilterData().categoryBits == MathDash.ORD_SURFACE_BIT)
+                    ((Kub) fixA.getUserData()).finish();
+                else  ((Kub) fixB.getUserData()).finish();
+                break;
+
+
+            case MathDash.SP_SURFACE_KB | MathDash.FINISH_BLOCK_BIT:
+                if(fixA.getFilterData().categoryBits == MathDash.SP_SURFACE_KB)
+                    ((Kub) fixA.getUserData()).finish();
+                else  ((Kub) fixB.getUserData()).finish();
                 break;
 
             case  MathDash.SP_SURFACE_KB | MathDash.BRICK_BIT :
