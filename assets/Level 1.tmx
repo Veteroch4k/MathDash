@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="42" nextobjectid="358">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="42" nextobjectid="366">
  <tileset firstgid="1" name="tileset_gutter" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924" columns="33">
   <image source="tileset_gutter.png" width="594" height="504"/>
   <tile id="0">
@@ -116,20 +116,12 @@
  </imagelayer>
  <layer id="2" name="Graphic Layer" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJzt1gEKgzAMhWHZPdqdfTcdgwkSUq21wRf8PwiI2tEuvmpZAGRSGscA9JFfIC/yC+RFfud6H1TrXmAE+cWR7R7DfqOF/MLiuyAP8hurmFJg8/n0vKr0ZQT5nU8tr6snZ9Sj2qcz1PP7ed09gz7Kz0JEblXX2sN+E2Vdx496fpWp9z/iXWvXe2b9V8bO4OVWuX89sue35/+v/xphx432vC7781h/s5pze/e2rkfmdjvP6pyfPTZi7l5deUbu5O2HFEXlqy+pHywz
+   eJzt1gEKhDAMRFHxHq1n35suCytIiFprgxP8DwKiVlrjqGUCkEnZ2Qagj/wCeZFfIC/yC+RFfnFm+ZfdxvPIL6xlIqdZkN9YxZQCm8+351WlLz3I73hqeV29OaMe1T5doZ7fz/z0DNooPwsRuVVdawv7T5R1HT/q+VWm3v+Ib61d75X13xk7gpdb5f61yJ7f1vtfO69vx/X2vG7Ks16zmn1H5+4dj8ztdp7V2T96bMTcvTrqjTLvfUhRVL76ArivKsA=
   </data>
  </layer>
- <objectgroup id="3" name="Ground">
+ <objectgroup id="3" name="Ground" visible="0">
   <object id="11" x="1136" y="192" width="256" height="16"/>
   <object id="25" x="1440" y="192" width="1024" height="16"/>
-  <object id="29" x="2160" y="176" width="16" height="16"/>
-  <object id="33" x="2304" y="176" width="16" height="16"/>
-  <object id="41" x="2544" y="176" width="16" height="16"/>
-  <object id="42" x="2496" y="192" width="1344" height="16"/>
-  <object id="53" x="2912" y="176" width="16" height="16"/>
-
-  <object id="154" x="720.333" y="175.667" width="32" height="16" visible="0"/>
-  <object id="157" x="863.455" y="175.818" width="16" height="16" visible="0"/>
   <object id="227" x="0" y="0" width="16" height="192"/>
   <object id="254" x="3792" y="0" width="16" height="192"/>
   <object id="255" x="1392" y="192" width="48" height="16"/>
@@ -140,17 +132,6 @@
   <object id="265" x="688" y="192" width="400" height="16"/>
   <object id="267" x="1088" y="192" width="16" height="16"/>
   <object id="281" x="2464" y="192" width="32" height="16"/>
-  <object id="326" x="1296" y="67.0909" width="16" height="8.09091"/>
-  <object id="327" x="1312.27" y="67.1364" width="16" height="8.09091"/>
-  <object id="328" x="1328.55" y="67.1364" width="16" height="8.09091"/>
-  <object id="329" x="1344.91" y="67.1364" width="16" height="8.09091"/>
-  <object id="330" x="1361.18" y="67.1364" width="16" height="8.09091"/>
-  <object id="331" x="1377.36" y="67.2273" width="16" height="8.09091"/>
-  <object id="332" x="1393.64" y="67.2273" width="16" height="8.09091"/>
-  <object id="333" x="1408.36" y="67.3182" width="16" height="8.09091"/>
-  <object id="334" x="1472.36" y="67.3182" width="16" height="8.09091"/>
-  <object id="335" x="1488.64" y="67.3182" width="16" height="8.09091"/>
-  <object id="336" x="1504.45" y="67.2273" width="16" height="8.09091"/>
   <object id="337" x="1824.09" y="178.045" width="16" height="10.9091"/>
   <object id="338" x="1856.36" y="162.364" width="16" height="10.9091"/>
   <object id="339" x="1888.18" y="146.273" width="16" height="10.9091"/>
@@ -170,22 +151,12 @@
   <object id="353" x="2160.09" y="82.0909" width="16" height="10.9091"/>
   <object id="354" x="2192.64" y="82.0909" width="16" height="10.9091"/>
   <object id="355" x="2209" y="82" width="16" height="10.9091"/>
-
-  <object id="54" x="3184" y="176" width="16" height="16"/>
-  <object id="153" x="544" y="176" width="15.6667" height="16.6667"/>
-  <object id="154" x="720.333" y="175.667" width="31.3333" height="16.3333"/>
-  <object id="155" x="848.333" y="175.667" width="15" height="16"/>
-  <object id="157" x="863.455" y="175.818" width="16.3636" height="15.6364"/>
-  <object id="161" x="895.727" y="191.455">
-   <polygon points="0,0 -15.8182,0.272727 -15.7273,-15.3636"/>
-  </object>
-
+  <object id="358" x="2496" y="192" width="592" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="Bricks">
+ <objectgroup id="6" name="Bricks" visible="0">
   <object id="170" x="1520.25" y="176.25" width="32" height="16"/>
   <object id="171" x="1600.25" y="176.25" width="16" height="16"/>
   <object id="172" x="1696.25" y="176" width="48" height="16"/>
-  <object id="210" x="2192.27" y="80.0909" width="32" height="16" visible="0"/>
   <object id="225" x="720" y="176" width="16" height="16"/>
   <object id="226" x="736" y="176" width="16" height="16"/>
   <object id="229" x="1216" y="160" width="48" height="16"/>
@@ -209,16 +180,20 @@
   <object id="285" x="1168" y="176" width="16" height="16"/>
   <object id="286" x="1184" y="176" width="16" height="16"/>
   <object id="287" x="1200" y="176" width="16" height="16"/>
+  <object id="361" x="2912" y="176" width="16" height="16"/>
+  <object id="362" x="2544" y="176" width="16" height="16"/>
+  <object id="363" x="2160" y="176" width="16" height="16"/>
+  <object id="365" x="2304" y="176" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="4" name="Thorns">
+ <objectgroup id="4" name="Thorns" visible="0">
   <object id="304" x="1104" y="176" width="16" height="16"/>
   <object id="322" x="1392" y="176" width="48" height="16"/>
   <object id="324" x="2464" y="176" width="32" height="16"/>
   <object id="325" x="3056" y="176" width="32" height="16"/>
-  <object id="356" x="864" y="176" width="32" height="16"/>
-  <object id="357" x="1552" y="176" width="16" height="16"/>
+  <object id="360" x="880" y="176" width="16" height="16"/>
+  <object id="364" x="1552.44" y="176.313" width="15.625" height="15.8125"/>
  </objectgroup>
-
- <objectgroup id="4" name="Thorns"/>
-
+ <objectgroup id="4" name="Finish">
+  <object id="359" x="3088" y="192" width="752" height="16"/>
+ </objectgroup>
 </map>
